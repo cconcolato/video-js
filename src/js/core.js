@@ -69,11 +69,12 @@ vjs.ACCESS_PROTOCOL = ('https:' == document.location.protocol ? 'https://' : 'ht
  */
 vjs.options = {
   // Default order of fallback technology
-  'techOrder': ['html5','flash'],
+  'techOrder': ['html5','svg','flash'],
   // techOrder: ['flash','html5'],
 
   'html5': {},
   'flash': {},
+  'svg': {},
 
   // Default of web browser is 300x150. Should rely on source width/height.
   'width': 300,

@@ -124,6 +124,11 @@ goog.exportProperty(vjs.Html5.prototype, 'setPreload', vjs.Html5.prototype.setPr
 goog.exportProperty(vjs.Html5.prototype, 'setAutoplay', vjs.Html5.prototype.setAutoplay);
 goog.exportProperty(vjs.Html5.prototype, 'setLoop', vjs.Html5.prototype.setLoop);
 
+goog.exportSymbol('videojs.Svg', vjs.Svg);
+goog.exportProperty(vjs.Svg, 'Events', vjs.Svg.Events);
+goog.exportProperty(vjs.Svg, 'isSupported', vjs.Svg.isSupported);
+goog.exportProperty(vjs.Svg, 'canPlaySource', vjs.Svg.canPlaySource);
+
 goog.exportSymbol('videojs.Flash', vjs.Flash);
 goog.exportProperty(vjs.Flash, 'isSupported', vjs.Flash.isSupported);
 goog.exportProperty(vjs.Flash, 'canPlaySource', vjs.Flash.canPlaySource);

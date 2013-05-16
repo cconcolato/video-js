@@ -6,10 +6,13 @@ var hasOwnProp = Object.prototype.hasOwnProperty;
  * @param  {Object=} properties Element properties to be applied.
  * @return {Element}
  */
-vjs.createEl = function(tagName, properties){
+vjs.createEl = function(tagName, properties, ns){
   var el, propName;
-
-  el = document.createElement(tagName || 'div');
+  if (ns) {
+    el = document.createElementNS(ns, tagName);
+  } else {
+    el = document.createElement(tagName || 'div');
+  }
 
   for (propName in properties){
     if (hasOwnProp.call(properties, propName)) {
@@ -531,7 +534,7 @@ vjs.createTimeRange = function(start, end){
  * @param  {Function=} onSuccess  Success callback
  * @param  {Function=} onError    Error callback
  */
-vjs.get = function(url, onSuccess, onError){
+vjs.get = function(url, onSuccess, onError, onProgress){
   var local, request;
 
   if (typeof XMLHttpRequest === 'undefined') {
@@ -544,6 +547,8 @@ vjs.get = function(url, onSuccess, onError){
   }
 
   request = new XMLHttpRequest();
+  request.addEventListener('progress', onProgress, false);
+
   try {
     request.open('GET', url);
   } catch(e) {
@@ -555,7 +560,7 @@ vjs.get = function(url, onSuccess, onError){
   request.onreadystatechange = function() {
     if (request.readyState === 4) {
       if (request.status === 200 || local && request.status === 0) {
-        onSuccess(request.responseText);
+        onSuccess(request.responseText, request.responseXML);
       } else {
         if (onError) {
           onError();
