@@ -392,7 +392,7 @@ vjs.TextTrack.prototype.activate = function(){
     this.player_.on('ended', vjs.bind(this, this.reset, this.id_));
 
     // Add to display
-    if (this.kind_ === 'captions' || this.kind_ === 'subtitles') {
+    if (this.kind_ === 'captions' || this.kind_ === 'subtitles' || this.kind_ === 'graphics') {
       this.player_.getChild('textTrackDisplay').addChild(this);
     }
   }
@@ -687,6 +687,15 @@ vjs.SubtitlesTrack.prototype.kind_ = 'subtitles';
 vjs.ChaptersTrack = vjs.TextTrack.extend();
 vjs.ChaptersTrack.prototype.kind_ = 'chapters';
 
+/**
+ * @constructor
+ */
+vjs.GraphicsTrack = function(player, options, ready){
+  goog.base(this, player, options, ready);
+};
+goog.inherits(vjs.GraphicsTrack, vjs.TextTrack);
+vjs.CaptionsTrack.prototype.kind_ = 'graphics';
+
 
 /* Text Track Display
 ============================================================================= */
@@ -873,6 +882,18 @@ vjs.SubtitlesButton.prototype.kind_ = 'subtitles';
 vjs.SubtitlesButton.prototype.buttonText = 'Subtitles';
 vjs.SubtitlesButton.prototype.className = 'vjs-subtitles-button';
 
+/**
+ * @constructor
+ */
+vjs.GraphicsButton = function(player, options, ready){
+  goog.base(this, player, options, ready);
+  this.el_.setAttribute('aria-label','Graphics Menu');
+};
+goog.inherits(vjs.GraphicsButton, vjs.TextTrackButton);
+vjs.GraphicsButton.prototype.kind_ = 'graphics';
+vjs.GraphicsButton.prototype.buttonText = 'Graphics';
+vjs.GraphicsButton.prototype.className = 'vjs-graphics-button';
+
 // Chapters act much differently than other text tracks
 // Cues are navigation vs. other tracks of alternative languages
 /**
@@ -998,6 +1019,7 @@ vjs.ChaptersTrackMenuItem.prototype.update = function(){
 vjs.obj.merge(vjs.ControlBar.prototype.options_['children'], {
   'subtitlesButton': {},
   'captionsButton': {},
+  'graphicssButton': {},
   'chaptersButton': {}
 });
 
